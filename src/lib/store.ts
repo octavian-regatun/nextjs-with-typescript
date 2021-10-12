@@ -1,9 +1,8 @@
 import create from "zustand";
 import LatLon from "../interfaces/latLon";
 import { devtools } from "zustand/middleware";
-import { Location } from "./states";
 import AutocompleteLocation from "@/interfaces/autocompleteLocation";
-import Queue from "@/classes/Queue";
+import Queue from "@/classes/queue";
 
 interface CurrentLocationStore {
   currentLocation: LatLon;

@@ -1,24 +1,18 @@
-import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import ProTip from '../src/ProTip';
-import Link from '../src/Link';
-import Copyright from '../src/Copyright';
+import { Grid } from "@mui/material";
+import * as React from "react";
+import Dashboard from "../src/components/Dashboard";
+import Information from "../src/components/Information";
+import styles from '@/styles/IndexPage.module.css'
 
 export default function Index() {
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Next.js v5-beta with TypeScript example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
+    <Grid container className={styles.container}>
+      <Grid item xs={8}>
+        <Dashboard />
+      </Grid>
+      <Grid item xs={4}>
+        <Information />
+      </Grid>
+    </Grid>
   );
 }

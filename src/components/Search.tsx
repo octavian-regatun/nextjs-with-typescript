@@ -1,5 +1,6 @@
 import AutocompleteLocation from "@/interfaces/autocompleteLocation";
 import LatLon from "@/interfaces/latLon";
+import { getCurrentLocationByIp } from "@/lib/currentLocation";
 import { useCurrentLocationStore, useHistoryLocationStore } from "@/lib/store";
 import styles from "@/styles/Search.module.css";
 import { Autocomplete, TextField } from "@mui/material";
@@ -28,7 +29,7 @@ export default function Search({ className }: Props) {
   useEffect(() => {
     navigator.permissions
       .query({ name: "geolocation" })
-      .then(function (result) {
+      .then(async function (result) {
         if (result.state === "granted") {
           navigator.geolocation.getCurrentPosition(position => {
             const location: LatLon = {
@@ -36,20 +37,19 @@ export default function Search({ className }: Props) {
               lon: position.coords.longitude,
             };
 
-            console.log("granted");
-
             setCurrentLocation(location);
+
+            console.log("granted");
           });
-          // If granted then you can directly call your function here
         } else if (result.state === "prompt") {
-          console.log("prompt");
+          const currentLocation = await getCurrentLocationByIp();
+
+          setCurrentLocation(currentLocation);
         } else if (result.state === "denied") {
-          console.log("denied");
-          // If denied then you have to show instructions to enable location
+          const currentLocation = await getCurrentLocationByIp();
+
+          setCurrentLocation(currentLocation);
         }
-        result.onchange = function () {
-          console.log(result.state);
-        };
       });
   }, []);
 

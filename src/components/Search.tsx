@@ -26,32 +26,31 @@ export default function Search({ className }: Props) {
   const [options, setOptions] = useState<AutocompleteLocation[]>([]);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.permissions
-        .query({ name: "geolocation" })
-        .then(function (result) {
-          if (result.state === "granted") {
-            navigator.geolocation.getCurrentPosition(position => {
-              const location: LatLon = {
-                lat: position.coords.latitude,
-                lon: position.coords.longitude,
-              };
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then(function (result) {
+        if (result.state === "granted") {
+          navigator.geolocation.getCurrentPosition(position => {
+            const location: LatLon = {
+              lat: position.coords.latitude,
+              lon: position.coords.longitude,
+            };
 
-              setCurrentLocation(location);
-            });
-            //If granted then you can directly call your function here
-            // } else if (result.state === "prompt") {
-            //   console.log(result.state);
-            // } else if (result.state === "denied") {
-            //   //If denied then you have to show instructions to enable location
-          }
-          result.onchange = function () {
-            console.log(result.state);
-          };
-        });
-    } else {
-      alert("Sorry Not available!");
-    }
+            console.log("granted");
+
+            setCurrentLocation(location);
+          });
+          // If granted then you can directly call your function here
+        } else if (result.state === "prompt") {
+          console.log("prompt");
+        } else if (result.state === "denied") {
+          console.log("denied");
+          // If denied then you have to show instructions to enable location
+        }
+        result.onchange = function () {
+          console.log(result.state);
+        };
+      });
   }, []);
 
   return (

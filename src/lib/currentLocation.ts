@@ -8,18 +8,18 @@ export async function getCurrentLocationByIp(): Promise<LatLon> {
 
     console.log(ip);
 
-    const { data } = await axios.get<LatLon>(`http://ip-api.com/json/${ip}`, {
-      params: {
-        fields: "lat,lon",
-      },
-    });
+    const { data } = await axios.get<LatLon>(
+      `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/currentLocation/${ip}`,
+      {
+        params: {
+          fields: "lat,lon",
+        },
+      }
+    );
 
     console.log(data);
 
-    return {
-      lat: data.lat,
-      lon: data.lon,
-    };
+    return data;
   } catch (e) {
     console.log(e);
 

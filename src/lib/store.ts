@@ -20,16 +20,16 @@ export const useCurrentLocationStore = create<CurrentLocationStore>(
 );
 
 interface HistoryLocationStore {
-  historyLocation: Queue<AutocompleteLocation>;
+  historyLocations: Queue<AutocompleteLocation>;
   addHistoryLocation: (location: AutocompleteLocation) => void;
 }
 
 export const useHistoryLocationStore = create<HistoryLocationStore>(
   devtools(set => ({
-    historyLocation: new Queue([], 5),
+    historyLocations: new Queue([], 5),
     addHistoryLocation: location =>
       set(state => {
-        state.historyLocation.add(location);
+        state.historyLocations.add(location);
       }),
   }))
 );

@@ -3,18 +3,17 @@ import React from "react";
 import styles from "@/styles/CityCard.module.css";
 
 interface Props {
+  title: string;
   photoSrc: string;
-  city: string;
-  country: string;
 }
 
-export default function CityCard({ photoSrc, city, country }: Props) {
+export default function CityCard({ title,photoSrc}: Props) {
   return (
     <div className={styles.container}>
       <img className={styles.image} src={photoSrc} />
       <Typography className={styles.text} variant="body1">
         <b>
-          {city}, {country}
+          {title}
         </b>
       </Typography>
     </div>
